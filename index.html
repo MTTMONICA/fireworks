@@ -44,7 +44,7 @@ const CLR = [
 ];
 
 // 名字列表
-const NAMES = ['梅梅', '陈卫平', '陈媛增', '陈沁雪', '陈世宇高考加油！'];
+const NAMES = ['梅梅', '卫平', '媛增', '沁雪', '世宇高考加油！'];
 
 // ==================== 名字烟花 ====================
 class NameLabel {
@@ -327,13 +327,6 @@ function loop() {
     ctx.fillStyle = t.clr; ctx.fill();
   }
 
-  // --- 名字烟花 ---
-  for (let i = nameLabels.length-1; i >= 0; i--) {
-    nameLabels[i].update();
-    nameLabels[i].draw(ctx);
-    if (!nameLabels[i].alive) nameLabels.splice(i,1);
-  }
-
   // --- 闪烁星点 ---
   for (let i = sparks.length-1; i >= 0; i--) {
     const s = sparks[i];
@@ -349,6 +342,13 @@ function loop() {
 
   ctx.globalAlpha = 1;
   ctx.globalCompositeOperation = 'source-over';
+
+  // --- 名字烟花（正常模式，不叠加发光）---
+  for (let i = nameLabels.length-1; i >= 0; i--) {
+    nameLabels[i].update();
+    nameLabels[i].draw(ctx);
+    if (!nameLabels[i].alive) nameLabels.splice(i,1);
+  }
 
   requestAnimationFrame(loop);
 }
