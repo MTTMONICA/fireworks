@@ -56,9 +56,9 @@ class NameLabel {
     this.scale = rnd(0.6, 1.8);
     this.life = 0;        // 0→1 淡入，1→0 淡出
     this.phase = 'in';    // in | hold | out
-    this.holdTime = rnd(0.8, 1.5);
-    this.inSpeed = rnd(0.03, 0.06);
-    this.outSpeed = rnd(0.008, 0.02);
+    this.holdTime = rnd(0.5, 1.0);
+    this.inSpeed = rnd(0.04, 0.08);
+    this.outSpeed = rnd(0.015, 0.03);
     this.alive = true;
     this.sparkTimer = 0;
   }
@@ -94,7 +94,6 @@ class NameLabel {
 
   draw(ctx) {
     const alpha = this.life;
-    // 长名字自动缩小
     const lenScale = this.name.length > 4 ? Math.min(1, 4 / this.name.length) : 1;
     const fontSize = Math.floor(40 * this.scale * lenScale);
     ctx.save();
@@ -102,19 +101,8 @@ class NameLabel {
     ctx.font = `bold ${fontSize}px "YouYuan","STCaiyun","PingFang SC","Microsoft YaHei",sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-
-    // 外层彩色发光（柔和）
-    ctx.shadowColor = this.theme[1];
-    ctx.shadowBlur = 8;
     ctx.fillStyle = this.theme[0];
     ctx.fillText(this.name, this.x, this.y);
-
-    // 内层微光
-    ctx.shadowColor = '#fff';
-    ctx.shadowBlur = 3;
-    ctx.fillStyle = 'rgba(255,255,255,0.85)';
-    ctx.fillText(this.name, this.x, this.y);
-
     ctx.restore();
   }
 }
